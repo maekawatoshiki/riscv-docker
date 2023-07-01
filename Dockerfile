@@ -20,7 +20,12 @@ RUN apt install -y --no-install-recommends \
 
 RUN git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
 
-RUN cd riscv-gnu-toolchain && ./configure --prefix=/opt/riscv --with-arch=rv32imfd --with-abi=ilp32 --enable-multilib && make -j
+WORKDIR $RISCV/riscv-gnu-toolchain
 
-# WORKDIR /work
+RUN ./configure \
+      --prefix=$RISCV \
+      --with-arch=rv32imfd \
+      --with-abi=ilp32 \
+      --enable-multilib
+RUN make -j
 
